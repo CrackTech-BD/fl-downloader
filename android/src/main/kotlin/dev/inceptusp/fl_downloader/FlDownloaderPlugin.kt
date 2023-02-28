@@ -148,7 +148,7 @@ private fun download(url: String?, headers: Map<String, String>?, fileName: Stri
   val uri = Uri.parse(url)
   Log.d("FlDownloader", "Downloading $url")
   val request = DownloadManager.Request(uri)
-  request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+  request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
   
   var appSpecificDir = context.getExternalFilesDir(null) // get the application-specific directory
