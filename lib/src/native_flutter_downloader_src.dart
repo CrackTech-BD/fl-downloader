@@ -8,7 +8,7 @@ import 'storage_permission_status.dart';
 
 part 'download_progress_src.dart';
 
-class FlDownloader {
+class NativeFlutterDownloader {
   static const MethodChannel _channel = MethodChannel(
     'dev.inceptusp.fl_downloader',
   );

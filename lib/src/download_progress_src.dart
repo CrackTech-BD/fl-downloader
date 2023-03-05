@@ -1,4 +1,4 @@
-part of 'fl_downloader_src.dart';
+part of 'native_flutter_downloader_src.dart';
 
 /// Possible status for download tasks
 enum DownloadStatus {

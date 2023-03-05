@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:fl_downloader/fl_downloader.dart';
+import 'package:fl_downloader/native_flutter_downloader.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,13 +24,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    FlDownloader.initialize();
-    progressStream = FlDownloader.progressStream.listen((event) {
+    NativeFlutterDownloader.initialize();
+    progressStream = NativeFlutterDownloader.progressStream.listen((event) {
       if (event.status == DownloadStatus.successful) {
         setState(() {
           progress = event.progress;
         });
-        FlDownloader.openFile(
+        NativeFlutterDownloader.openFile(
           filePath: event.filePath,
         );
       } else if (event.status == DownloadStatus.running) {
@@ -46,7 +45,8 @@ class _MyAppState extends State<MyApp> {
         debugPrint('Download paused');
         Future.delayed(
           const Duration(milliseconds: 250),
-          () => FlDownloader.attachDownloadProgress(event.downloadId),
+          () =>
+              NativeFlutterDownloader.attachDownloadProgress(event.downloadId),
         );
       } else if (event.status == DownloadStatus.pending) {
         debugPrint('Download pending');
@@ -64,9 +64,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('FlDownloader example app'),
+          title: const Text('Native Flutter Downloader'),
         ),
         body: Column(
           children: [
@@ -88,9 +89,10 @@ class _MyAppState extends State<MyApp> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.file_download),
           onPressed: () async {
-            final permission = await FlDownloader.requestPermission();
+            final permission =
+                await NativeFlutterDownloader.requestPermission();
             if (permission == StoragePermissionStatus.granted) {
-              await FlDownloader.download(
+              await NativeFlutterDownloader.download(
                 urlController.text,
                 fileName: 'teste.pdf',
               );
